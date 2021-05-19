@@ -1,0 +1,25 @@
+{
+    "name": "reindeer/test",
+    "description": "Test project",
+    "type": "project",
+    "require": {
+        "php": "^8.0",
+        "symfony/console": "^5.2",
+        "symfony/dependency-injection": "^5.2",
+        "symfony/config": "^5.2",
+        "symfony/yaml": "^5.2",
+        "symfony/filesystem": "^5.2",
+        "guzzlehttp/guzzle": "^7.3"
+    },
+    "authors": [
+        {
+            "name": "Denis Daschenko",
+            "email": "reindeer@tarandro.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Tarandro\\": "src/"
+        }
+    }
+}
