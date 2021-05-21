@@ -6,6 +6,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Tarandro\Console\CurrencyRate;
 
 $application = new Application();
 
@@ -14,6 +15,9 @@ $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../config')
 $loader->load('services.yaml');
 $container->compile();
 
-$application->add($container->get(\Tarandro\Console\CurrencyRate::class));
+/** @var \Symfony\Component\Console\Command\Command $converter */
+$converter = $container->get(CurrencyRate::class);
+$application->add($converter);
+$application->setDefaultCommand($converter->getName());
 
 $application->run();

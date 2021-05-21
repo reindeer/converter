@@ -17,7 +17,8 @@ class Cbr implements CurrencyResourceInterface
     public function __construct(
         protected Filesystem $filesystem,
         protected string $cacheDir,
-    ) { }
+    ) {
+    }
 
     public function fetch(string $code, \DateTime $date): array
     {
@@ -27,7 +28,7 @@ class Cbr implements CurrencyResourceInterface
         if (!$this->isCachedDate($date)) {
             $this->loadForDate($date);
         }
-        if ($code !== CurrencyInterface::DEFAULT_CURRENCY) {
+        if (CurrencyInterface::BASE_CURRENCY !== $code) {
             $rate = $this->getRate($code, $date);
         }
 
@@ -47,7 +48,7 @@ class Cbr implements CurrencyResourceInterface
         $this->filesystem->mkdir($this->getDbDir($date));
         foreach ($xml->children() as $currency) {
             try {
-                $value = (float )str_replace(',', '.', $currency->Value);
+                $value = (float) str_replace(',', '.', $currency->Value);
                 $nominal = (float) str_replace(',', '.', $currency->Nominal);
                 $this->filesystem->dumpFile($this->getCurrencyDir($currency->CharCode, $date), $value / $nominal);
             } catch (\Throwable) {

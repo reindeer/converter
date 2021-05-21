@@ -9,20 +9,23 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Tarandro\Contract\CurrencyInterface;
 use Tarandro\Exception\CurrencyNotFoundException;
 use Tarandro\Exception\InvalidDateException;
-use Tarandro\Exception\RateNotFoundExcetion;
 use Tarandro\Repository\RateRepository;
 
 class CurrencyRate extends Command
 {
+    public const DEFAULT_CURRENCY = 'USD';
+
     public const OPTION_DATE = 'date';
+
     public const OPTION_FROM_CURRENCY = 'from';
+
     public const OPTION_TO_CURRENCY = 'to';
 
     protected static $defaultName = 'fetch-currency';
 
     public function __construct(
         protected RateRepository $rateRepository,
-        string $name = null
+        string $name = null,
     ) {
         parent::__construct($name);
     }
@@ -32,8 +35,8 @@ class CurrencyRate extends Command
         $this
             ->setDescription('Fetch currency rates from CBR')
             ->addOption(self::OPTION_DATE, 'd', InputArgument::OPTIONAL, 'ISO Date', date('Y-m-d'))
-            ->addOption(self::OPTION_FROM_CURRENCY, 'f', InputArgument::OPTIONAL, 'From currency', CurrencyInterface::DEFAULT_CURRENCY)
-            ->addArgument(self::OPTION_TO_CURRENCY, InputArgument::REQUIRED, 'To currency');
+            ->addOption(self::OPTION_FROM_CURRENCY, 'f', InputArgument::OPTIONAL, 'From currency', CurrencyInterface::BASE_CURRENCY)
+            ->addArgument(self::OPTION_TO_CURRENCY, InputArgument::OPTIONAL, 'To currency', static::DEFAULT_CURRENCY);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -50,7 +53,7 @@ class CurrencyRate extends Command
         try {
             $rate = $this->rateRepository->get($fromCurrency, $toCurrency, $date);
 
-            $em = $rate->getDelta() >= 0 ? "<info>+%.4f</info>" : "<error>%.4f</error>";
+            $em = $rate->getDelta() >= 0 ? '<info>+%.4f</info>' : '<error>%.4f</error>';
             $output->writeln("Currency rate on <comment>{$rate->getDate()->format('d.m.Y')}</comment>");
             $output->writeln(sprintf("%s -> %s: %.4f $em", strtoupper($rate->getBaseCurrency()), strtoupper($rate->getTargetCurrency()), $rate->getRate(), $rate->getDelta()));
             return Command::SUCCESS;

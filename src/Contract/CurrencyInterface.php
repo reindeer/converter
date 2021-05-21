@@ -4,8 +4,8 @@ namespace Tarandro\Contract;
 
 interface CurrencyInterface
 {
-    public const DEFAULT_CURRENCY = 'RUR';
-    
+    public const BASE_CURRENCY = 'RUR';
+
     public const FIELD_DATE = 'date';
 
     public const FIELD_CODE = 'code';

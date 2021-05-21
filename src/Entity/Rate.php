@@ -6,7 +6,6 @@ use Tarandro\Contract\RateInterface;
 
 class Rate extends AbstractEntity implements RateInterface
 {
-
     public function getDate(): \DateTime
     {
         return $this->get(static::FIELD_DATE);

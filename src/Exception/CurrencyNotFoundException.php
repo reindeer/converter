@@ -2,8 +2,6 @@
 
 namespace Tarandro\Exception;
 
-use Throwable;
-
 class CurrencyNotFoundException extends \Exception
 {
     protected string $currencyCode;

@@ -2,7 +2,6 @@
 
 namespace Tarandro\Repository;
 
-use Tarandro\Contract\CurrencyInterface;
 use Tarandro\Contract\CurrencyResourceInterface;
 use Tarandro\Entity\Currency;
 
@@ -15,7 +14,6 @@ class CurrencyRepository
 
     public function get(string $currency, \DateTime $date): Currency
     {
-
         $data = $this->currencyResource->fetch($currency, $date);
         return new Currency($data);
     }

@@ -11,7 +11,7 @@ services:
     resource: '../src/*'
 
   Tarandro\Service\Cbr:
-    arguments: ['@Symfony\Component\Filesystem\Filesystem', '%cache.dir%']
+    arguments: [ '@Symfony\Component\Filesystem\Filesystem', '%cache.dir%' ]
 
   Symfony\Component\Filesystem\Filesystem:
     class: \Symfony\Component\Filesystem\Filesystem
