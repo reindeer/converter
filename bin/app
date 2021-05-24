@@ -1,4 +1,4 @@
-#!/usr/bin/env php
+#!/usr/local/opt/php@8.0/bin/php
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -6,7 +6,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Tarandro\Console\CurrencyRate;
+use Tarandro\Command\CurrencyRate;
 
 $application = new Application();
 
