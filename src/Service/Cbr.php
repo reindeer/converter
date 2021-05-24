@@ -32,7 +32,7 @@ class Cbr implements CurrencyResourceInterface
             $rate = $this->getRate($code, $date);
         }
 
-        return ['rate' => $rate ?? 1, 'code' => $code, 'date' => $date];
+        return ['rate' => $rate ?? 1.0, 'code' => $code, 'date' => $date];
     }
 
     protected function loadForDate(\DateTime $date)
