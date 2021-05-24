@@ -4,14 +4,16 @@ parameters:
 services:
   _defaults:
     autowire: true
-    autoconfigure: true
-    public: true
 
   Tarandro\:
-    resource: '../src/*'
+    resource: ../src/*
+
+  Tarandro\Command\CurrencyRate:
+    public: true
 
   Tarandro\Service\Cbr:
-    arguments: [ '@Symfony\Component\Filesystem\Filesystem', '%cache.dir%' ]
+    arguments:
+      $cacheDir: '%cache.dir%'
 
   Symfony\Component\Filesystem\Filesystem:
     class: \Symfony\Component\Filesystem\Filesystem
